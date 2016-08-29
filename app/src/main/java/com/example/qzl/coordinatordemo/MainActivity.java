@@ -1,5 +1,6 @@
 package com.example.qzl.coordinatordemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -7,6 +8,7 @@ import android.support.design.widget.SwipeDismissBehavior;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements SwipeDismissBehavior.OnDismissListener {
+public class MainActivity extends AppCompatActivity implements SwipeDismissBehavior.OnDismissListener, View.OnClickListener {
 
     private TextView mText;
 
@@ -30,6 +32,10 @@ public class MainActivity extends AppCompatActivity implements SwipeDismissBehav
         List<String> list = getDataList();
         recyclerView.setAdapter(new MyAdapter(this,list));
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
 //        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mText.getLayoutParams();
         //设置behavior
         // 第一种 ：控件的行为 : 滑动删除
@@ -40,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements SwipeDismissBehav
 //        MyBehavior myBehavior = new MyBehavior();
 //        params.setBehavior(myBehavior);
 
-
+        findViewById(R.id.fab).setOnClickListener(this);
+        findViewById(R.id.ibtn).setOnClickListener(this);
     }
 
     @NonNull
@@ -78,5 +85,11 @@ public class MainActivity extends AppCompatActivity implements SwipeDismissBehav
     @Override
     public void onDragStateChanged(int state) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        Snackbar.make(v,"点击事件",Snackbar.LENGTH_LONG).show();
+        startActivity(new Intent(MainActivity.this,TextInputActivity.class));
     }
 }
